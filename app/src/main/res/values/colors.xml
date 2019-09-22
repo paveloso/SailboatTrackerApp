@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#D81B60</color>
+    <color name="app_buttons_red">#ba182d</color>
+    <color name="app_buttons_text_white">#ffffff</color>
+    <color name="body_light">#9e9e9e</color>
+    <color name="body_dark">#424242</color>
+    <color name="body_black">#000000</color>
+    <color name="app_buttons_red_dark">#880e1d</color>
+    <color name="colorAccent_custom">#9e9e9e</color>
+    <color name="conn_success">#64dd17</color>
+    <color name="conn_fail">#d50000</color>
+</resources>

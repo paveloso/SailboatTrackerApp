@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="main_scr_but" type="dimen">70</item>
+    <dimen name="buttons_all_margins">5dp</dimen>
+</resources>
