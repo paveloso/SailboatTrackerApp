@@ -3,4 +3,5 @@
     <string name="show_map_but">Show map</string>
     <string name="app_info_but">App\'s info</string>
     <string name="inet_conn">Internet connection:</string>
+    <string name="title_activity_maps">Race Map</string>
 </resources>
