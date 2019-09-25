@@ -1,24 +1,29 @@
 package com.teststation.paveloso.sailboattracker;
 
+import android.content.Context;
 import android.content.res.Resources;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.teststation.paveloso.sailboattracker.Utils.LayoutUtils;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private static final String TAG = MapsActivity.class.getSimpleName();
 
     private GoogleMap mMap;
+
+    private BitmapDescriptor locationMarkerIcon;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +47,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+        mMap.getUiSettings().setRotateGesturesEnabled(false);
 
         try {
             boolean success = googleMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(this, R.raw.style_json));
@@ -53,9 +59,20 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             Log.e(TAG, "Can't find style. Error: ", e);
         }
 
+        Context context = getApplicationContext();
+
+        locationMarkerIcon = LayoutUtils.getBitmapFromVector(context, R.drawable.boat_icon,
+                ContextCompat.getColor(context, R.color.app_buttons_red));
+
         // Add a marker in Sydney and move the camera
         LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
+//        mMap.addMarker(new MarkerOptions().position(sydney)
+//                .title("Marker in Sydney")
+//                .icon(BitmapDescriptorFactory.fromResource(R.drawable.boat_icon))
+//                .rotation(200));
+//        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+
+        mMap.addMarker(new MarkerOptions().icon(locationMarkerIcon).position(sydney).rotation(200));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
     }
 }
