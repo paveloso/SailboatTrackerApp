@@ -15,6 +15,7 @@ import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.teststation.paveloso.sailboattracker.Utils.DataParserAsync;
 import com.teststation.paveloso.sailboattracker.Utils.LayoutUtils;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
@@ -61,18 +62,21 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         Context context = getApplicationContext();
 
-        locationMarkerIcon = LayoutUtils.getBitmapFromVector(context, R.drawable.boat_icon,
-                ContextCompat.getColor(context, R.color.app_buttons_red));
+//        locationMarkerIcon = LayoutUtils.getBitmapFromVector(context, R.drawable.boat_icon,
+//                ContextCompat.getColor(context, R.color.app_buttons_red));
+
+        DataParserAsync dpa = new DataParserAsync(context, mMap, locationMarkerIcon);
+        dpa.execute();
 
         // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
+//        LatLng sydney = new LatLng(-34, 151);
 //        mMap.addMarker(new MarkerOptions().position(sydney)
 //                .title("Marker in Sydney")
 //                .icon(BitmapDescriptorFactory.fromResource(R.drawable.boat_icon))
 //                .rotation(200));
 //        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
 
-        mMap.addMarker(new MarkerOptions().icon(locationMarkerIcon).position(sydney).rotation(200));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+//        mMap.addMarker(new MarkerOptions().icon(locationMarkerIcon).position(sydney).rotation(200));
+//        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
     }
 }

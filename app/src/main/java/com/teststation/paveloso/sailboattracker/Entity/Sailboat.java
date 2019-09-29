@@ -1,5 +1,7 @@
 package com.teststation.paveloso.sailboattracker.Entity;
 
+import com.teststation.paveloso.sailboattracker.R;
+
 import java.util.Date;
 
 public class Sailboat {
@@ -8,13 +10,23 @@ public class Sailboat {
     private String name;
     private int position; //current rank
     private int cog;
-    private int sog; //kn
+    private double sog; //kn
     private double dtf; //nm
     private float latitude;
     private float longitude;
     private boolean joker;
     private boolean stealth;
     private Date lastReport;
+
+    private int resourceColor;
+
+    public int getResourceColor() {
+        return resourceColor;
+    }
+
+    public void setResourceColor(int resourceColor) {
+        this.resourceColor = resourceColor;
+    }
 
     public String getId() {
         return id;
@@ -48,11 +60,11 @@ public class Sailboat {
         this.cog = cog;
     }
 
-    public int getSog() {
+    public double getSog() {
         return sog;
     }
 
-    public void setSog(int sog) {
+    public void setSog(double sog) {
         this.sog = sog;
     }
 
