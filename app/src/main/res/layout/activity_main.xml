@@ -112,7 +112,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
                 android:gravity="center"
-                android:text="TextView"
+                android:text="@string/conn_check"
                 android:textColor="@color/app_buttons_text_white" />
         </LinearLayout>
 

@@ -2,6 +2,8 @@
     <string name="app_name">Sailboat Tracker</string>
     <string name="show_map_but">Show map</string>
     <string name="app_info_but">App\'s info</string>
+    <string name="conn_check">Checking&#8230;</string>
     <string name="inet_conn">Internet connection:</string>
     <string name="title_activity_maps">Race Map</string>
+    <string name="obtaining_race_data">Obtaining the Race data&#8230;</string>
 </resources>

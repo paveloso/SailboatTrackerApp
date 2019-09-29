@@ -32,7 +32,7 @@ public class LayoutUtils {
 
 //        Bitmap bitmap = Bitmap.createBitmap(vectorDrawable.getIntrinsicWidth(), vectorDrawable.getIntrinsicHeight(),
 //                Bitmap.Config.ARGB_8888);
-        Bitmap bitmap = Bitmap.createBitmap(75, 75,
+        Bitmap bitmap = Bitmap.createBitmap(60, 60,
                 Bitmap.Config.ARGB_8888);
 
         Canvas canvas = new Canvas(bitmap);

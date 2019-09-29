@@ -1,10 +1,12 @@
 package com.teststation.paveloso.sailboattracker.Utils;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Debug;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
+import android.widget.ProgressBar;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -16,20 +18,34 @@ import com.teststation.paveloso.sailboattracker.R;
 
 import java.util.List;
 
-public class DataParserAsync extends AsyncTask<Void, Void, List<Sailboat>> {
+public class DataParserAsync extends AsyncTask<Void, Integer, List<Sailboat>> {
 
     private static final String TAG = DataParserAsync.class.getSimpleName();
 
     private Context context;
     private GoogleMap map;
     private BitmapDescriptor locationMarker;
+    private ProgressDialog progressDialog;
 
     private DataParser dp = new DataParser();
 
-    public DataParserAsync(Context context, GoogleMap map, BitmapDescriptor locationMarker) {
+    public DataParserAsync(Context context, GoogleMap map, BitmapDescriptor locationMarker, ProgressDialog progressDialog) {
         this.context = context;
         this.map = map;
         this.locationMarker = locationMarker;
+        this.progressDialog = new ProgressDialog(context);
+    }
+
+    @Override
+    protected void onPreExecute() {
+        super.onPreExecute();
+//        progressDialog = new ProgressDialog(context);
+        String text = context.getString(R.string.obtaining_race_data);
+        progressDialog.setMessage(text);
+        progressDialog.setIndeterminate(false);
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progressDialog.setCancelable(false);
+        progressDialog.show();
     }
 
     @Override
@@ -43,18 +59,27 @@ public class DataParserAsync extends AsyncTask<Void, Void, List<Sailboat>> {
         return sailboats;
     }
 
+//    @Override
+//    protected void onProgressUpdate(Integer... values) {
+//        super.onProgressUpdate(values);
+//
+//        progressBar.setProgress(values[0]);
+//    }
+
     @Override
     protected void onPostExecute(List<Sailboat> sailboats) {
+        progressDialog.dismiss();
         if (!sailboats.isEmpty()) {
             for (Sailboat sb : sailboats) {
                 LatLng boatPosition = new LatLng(sb.getLatitude(), sb.getLongitude());
                 int color = getColorForName(sb.getName());
-                locationMarker = LayoutUtils.getBitmapFromVector(context, R.drawable.boat_icon,
+                locationMarker = LayoutUtils.getBitmapFromVector(context,
+                        (sb.getCog() > 0 ? R.drawable.boat_icon : R.drawable.boat_icon_blank),
                         ContextCompat.getColor(context, color));
 
                 map.addMarker(new MarkerOptions().icon(locationMarker).position(boatPosition)
                         .title(sb.getName())
-//                        .rotation(200)
+                        .rotation(sb.getCog())
                 );
                 if (sb.getPosition() == 1) {
                     map.moveCamera(CameraUpdateFactory.newLatLng(boatPosition));

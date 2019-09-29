@@ -56,6 +56,7 @@ public class DataParser {
                         sailboat.setName(boatNameBlock.get(0).text());
                         sailboat.setLatitude(Float.parseFloat(tds.get(2).text()));
                         sailboat.setLongitude(Float.parseFloat(tds.get(3).text()));
+                        sailboat.setDtf(Double.parseDouble(tds.get(4).text().replace("NM", "")));
                         sailboat.setSog(Double.parseDouble(tds.get(5).text().replace("KN", "")));
                         SimpleDateFormat sdf = new SimpleDateFormat("dd MMM yyyy HH.mm");
                         sailboat.setLastReport(sdf.parse(tds.get(8).text().replace(" (UTC)", "")));
