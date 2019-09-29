@@ -29,7 +29,7 @@ public class DataParserAsync extends AsyncTask<Void, Integer, List<Sailboat>> {
 
     private DataParser dp = new DataParser();
 
-    public DataParserAsync(Context context, GoogleMap map, BitmapDescriptor locationMarker, ProgressDialog progressDialog) {
+    public DataParserAsync(Context context, GoogleMap map, BitmapDescriptor locationMarker) {
         this.context = context;
         this.map = map;
         this.locationMarker = locationMarker;
@@ -39,7 +39,6 @@ public class DataParserAsync extends AsyncTask<Void, Integer, List<Sailboat>> {
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-//        progressDialog = new ProgressDialog(context);
         String text = context.getString(R.string.obtaining_race_data);
         progressDialog.setMessage(text);
         progressDialog.setIndeterminate(false);
@@ -51,20 +50,10 @@ public class DataParserAsync extends AsyncTask<Void, Integer, List<Sailboat>> {
     @Override
     protected List<Sailboat> doInBackground(Void... voids) {
 
-        Debug.waitForDebugger();
-
         List<Sailboat> sailboats = dp.getSailboatsData(context);
-        Log.i(TAG, "doInBackground: " + sailboats);
 
         return sailboats;
     }
-
-//    @Override
-//    protected void onProgressUpdate(Integer... values) {
-//        super.onProgressUpdate(values);
-//
-//        progressBar.setProgress(values[0]);
-//    }
 
     @Override
     protected void onPostExecute(List<Sailboat> sailboats) {

@@ -25,7 +25,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private static final String TAG = MapsActivity.class.getSimpleName();
 
     private GoogleMap mMap;
-    private ProgressDialog progressDialog;
 
     private BitmapDescriptor locationMarkerIcon;
 
@@ -36,8 +35,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-
-        progressDialog = new ProgressDialog(getApplicationContext());
     }
 
 
@@ -70,7 +67,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 //        locationMarkerIcon = LayoutUtils.getBitmapFromVector(context, R.drawable.boat_icon,
 //                ContextCompat.getColor(context, R.color.app_buttons_red));
 
-        DataParserAsync dpa = new DataParserAsync(MapsActivity.this, mMap, locationMarkerIcon, progressDialog);
+        DataParserAsync dpa = new DataParserAsync(MapsActivity.this, mMap, locationMarkerIcon);
         dpa.execute();
 
         // Add a marker in Sydney and move the camera
