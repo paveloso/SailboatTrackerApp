@@ -12,4 +12,17 @@
     <color name="colorAccent_custom">#9e9e9e</color>
     <color name="conn_success">#64dd17</color>
     <color name="conn_fail">#d50000</color>
+
+    <color name="visit_sanya">#f26d21</color>
+    <color name="qingdao">#c41230</color>
+    <color name="ha_long_bay">#009b77</color>
+    <color name="seattle">#746bb1</color>
+    <color name="date_to_lead">#11294c</color>
+    <color name="zhuhai">#25408d</color>
+    <color name="punta_del_este">#f9d901</color>
+    <color name="gotobermuda">#85dddd</color>
+    <color name="wtc_logistic">#232020</color>
+    <color name="unicef">#2eabe2</color>
+    <color name="imagine_yor_korea">#a3238e</color>
+    <color name="blank">#ffffff</color>
 </resources>
