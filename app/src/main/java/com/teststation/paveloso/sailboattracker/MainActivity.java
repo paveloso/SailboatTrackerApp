@@ -1,7 +1,9 @@
 package com.teststation.paveloso.sailboattracker;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 import com.teststation.paveloso.sailboattracker.Utils.ConnectionCheckerAsync;
@@ -17,5 +19,10 @@ public class MainActivity extends AppCompatActivity {
 
         ConnectionCheckerAsync ccAsync = new ConnectionCheckerAsync(connResultText);
         ccAsync.execute();
+    }
+
+    public void openRaceMap(View view) {
+        Intent intent = new Intent(MainActivity.this, MapsActivity.class);
+        startActivity(intent);
     }
 }
