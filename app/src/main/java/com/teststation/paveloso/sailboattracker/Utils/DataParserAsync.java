@@ -67,7 +67,7 @@ public class DataParserAsync extends AsyncTask<Void, Integer, List<Sailboat>> {
                         ContextCompat.getColor(context, color));
 
                 map.addMarker(new MarkerOptions().icon(locationMarker).position(boatPosition)
-                        .title(sb.getName())
+                        .title(sb.getPosition() + ". " + sb.getName())
                         .rotation(sb.getCog())
                 );
                 if (sb.getPosition() == 1) {
