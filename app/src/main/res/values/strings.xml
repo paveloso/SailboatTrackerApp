@@ -6,4 +6,13 @@
     <string name="inet_conn">Internet connection:</string>
     <string name="title_activity_maps">Race Map</string>
     <string name="obtaining_race_data">Obtaining the Race data&#8230;</string>
+    <string name="show_details">Show Details</string>
+    <string name="details">Details</string>
+    <string name="kn">kn</string>
+    <string name="nm">nm</string>
+    <string name="close">Close</string>
+    <string name="pos">#</string>
+    <string name="name">Name</string>
+    <string name="sog">SOG(kn)</string>
+    <string name="dtf">DTF(nm)</string>
 </resources>
