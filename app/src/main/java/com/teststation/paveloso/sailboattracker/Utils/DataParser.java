@@ -1,6 +1,7 @@
 package com.teststation.paveloso.sailboattracker.Utils;
 
 import android.content.Context;
+import android.net.TrafficStats;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 
@@ -30,6 +31,16 @@ public class DataParser {
 
         sailboatsData = new ArrayList<>();
 
+//        String info = "";
+//
+//        info += "Mobile interface:\n";
+//        info += ("\tReceived: " + TrafficStats.getMobileRxBytes() + " bytes\n");
+//        info += ("\tTransmitted: " + TrafficStats.getMobileTxBytes() + "bytes\n");
+//
+//        info += "All network:\n";
+//        info += ("\tReceived: " + TrafficStats.getTotalRxBytes() + " bytes\n");
+//        info += ("\tTransmitted: " + TrafficStats.getTotalTxBytes() + " bytes\n");
+
         String parseUrl = "https://www.clipperroundtheworld.com/race/standings"; // url goes here
 
         try {
@@ -51,9 +62,9 @@ public class DataParser {
                     sailboat.setLatitude(Float.parseFloat(tds.get(2).text()));
                     sailboat.setLongitude(Float.parseFloat(tds.get(3).text()));
                     sailboat.setDtf(Double.parseDouble(tds.get(4).text().replace("NM", "")));
-                    sailboat.setSog(Double.parseDouble(tds.get(5).text().replace("KN", "")));
-                    SimpleDateFormat sdf = new SimpleDateFormat("dd MMM yyyy HH.mm");
-                    sailboat.setLastReport(sdf.parse(tds.get(8).text().replace(" (UTC)", "")));
+                    sailboat.setSog(String.format("%.1f", Double.parseDouble(tds.get(5).text().replace("KN", ""))));
+//                    SimpleDateFormat sdf = new SimpleDateFormat("dd MMM yyyy HH.mm");
+                    sailboat.setLastReport(tds.get(8).text().replace(" (UTC)", ""));
                     sailboat.setResourceColor(findColorForName(sailboat.getName()));
                     sailboat.setJoker(joker);
 
@@ -62,10 +73,19 @@ public class DataParser {
             }
         } catch (IOException e) {
             Log.e(TAG, "Can't connect to " + parseUrl, e);
-        } catch (ParseException e) {
-            e.printStackTrace();
-            Log.e(TAG, "Can't parse the Date", e);
         }
+
+//        String infoAfter = "";
+//
+//        infoAfter += "Mobile interface:\n";
+//        infoAfter += ("\tReceived: " + TrafficStats.getMobileRxBytes() + " bytes\n");
+//        infoAfter += ("\tTransmitted: " + TrafficStats.getMobileTxBytes() + "bytes\n");
+//
+//        infoAfter += "All network:\n";
+//        infoAfter += ("\tReceived: " + TrafficStats.getTotalRxBytes() + " bytes\n");
+//        infoAfter += ("\tTransmitted: " + TrafficStats.getTotalTxBytes() + " bytes\n");
+//
+//        System.out.println(info + "\n" + infoAfter);
 
     }
 

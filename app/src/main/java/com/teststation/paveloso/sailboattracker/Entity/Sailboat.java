@@ -10,13 +10,13 @@ public class Sailboat {
     private String name;
     private int position; //current rank
     private int cog;
-    private double sog; //kn
+    private String sog; //kn
     private double dtf; //nm
     private float latitude;
     private float longitude;
     private boolean joker;
     private boolean stealth;
-    private Date lastReport;
+    private String lastReport;
 
     private int resourceColor;
 
@@ -60,11 +60,11 @@ public class Sailboat {
         this.cog = cog;
     }
 
-    public double getSog() {
+    public String getSog() {
         return sog;
     }
 
-    public void setSog(double sog) {
+    public void setSog(String sog) {
         this.sog = sog;
     }
 
@@ -108,11 +108,11 @@ public class Sailboat {
         this.stealth = stealth;
     }
 
-    public Date getLastReport() {
+    public String getLastReport() {
         return lastReport;
     }
 
-    public void setLastReport(Date lastReport) {
+    public void setLastReport(String lastReport) {
         this.lastReport = lastReport;
     }
 }

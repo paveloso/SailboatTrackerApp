@@ -17,7 +17,7 @@
         android:id="@+id/show_details_map"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/buttons_all_margins"
+        android:layout_margin="@dimen/buttons_all_margins_double"
         android:background="@color/app_buttons_red"
         android:text="@string/show_details"
         android:textColor="@color/app_buttons_text_white"
