@@ -27,13 +27,16 @@ public class DataParserAsync extends AsyncTask<Void, Integer, List<Sailboat>> {
     private BitmapDescriptor locationMarker;
     private ProgressDialog progressDialog;
 
+    private static List<Sailboat> sailboatListPrepared;
+
     private DataParser dp = new DataParser();
 
-    public DataParserAsync(Context context, GoogleMap map, BitmapDescriptor locationMarker) {
+    public DataParserAsync(Context context, GoogleMap map, BitmapDescriptor locationMarker, List<Sailboat> sailboatListPrepared) {
         this.context = context;
         this.map = map;
         this.locationMarker = locationMarker;
         this.progressDialog = new ProgressDialog(context);
+        this.sailboatListPrepared = sailboatListPrepared;
     }
 
     @Override
@@ -50,13 +53,14 @@ public class DataParserAsync extends AsyncTask<Void, Integer, List<Sailboat>> {
     @Override
     protected List<Sailboat> doInBackground(Void... voids) {
 
-        List<Sailboat> sailboats = dp.getSailboatsData(context);
+        sailboatListPrepared = dp.getSailboatsData(context);
 
-        return sailboats;
+        return sailboatListPrepared;
     }
 
     @Override
     protected void onPostExecute(List<Sailboat> sailboats) {
+        sailboatListPrepared = sailboats;
         progressDialog.dismiss();
         if (!sailboats.isEmpty()) {
             for (Sailboat sb : sailboats) {
@@ -107,6 +111,10 @@ public class DataParserAsync extends AsyncTask<Void, Integer, List<Sailboat>> {
                 default:
                     return R.color.blank;
         }
+    }
+
+    public static List<Sailboat> getSailboatListPrepared() {
+        return sailboatListPrepared;
     }
 
 
