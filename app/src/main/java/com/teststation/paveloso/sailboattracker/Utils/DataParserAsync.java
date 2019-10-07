@@ -64,19 +64,21 @@ public class DataParserAsync extends AsyncTask<Void, Integer, List<Sailboat>> {
         progressDialog.dismiss();
         if (!sailboats.isEmpty()) {
             for (Sailboat sb : sailboats) {
-                LatLng boatPosition = new LatLng(sb.getLatitude(), sb.getLongitude());
-                int color = getColorForName(sb.getName());
-                locationMarker = LayoutUtils.getBitmapFromVector(context,
-                        (sb.getCog() > 0 ? R.drawable.boat_icon : R.drawable.boat_icon_blank),
-                        ContextCompat.getColor(context, color));
+                if (!sb.isStealth()) {
+                    LatLng boatPosition = new LatLng(sb.getLatitude(), sb.getLongitude());
+                    int color = getColorForName(sb.getName());
+                    locationMarker = LayoutUtils.getBitmapFromVector(context,
+                            (sb.getCog() > 0 ? R.drawable.boat_icon : R.drawable.boat_icon_blank),
+                            ContextCompat.getColor(context, color));
 
-                map.addMarker(new MarkerOptions().icon(locationMarker).position(boatPosition)
-                        .title(sb.getPosition() + ". " + sb.getName())
-                        .rotation(sb.getCog())
-                );
-                if (sb.getPosition() == 1) {
-                    map.moveCamera(CameraUpdateFactory.newLatLng(boatPosition));
-                    map.animateCamera(CameraUpdateFactory.zoomTo(7), 2000, null);
+                    map.addMarker(new MarkerOptions().icon(locationMarker).position(boatPosition)
+                            .title(sb.getPosition() + ". " + sb.getName())
+                            .rotation(sb.getCog())
+                    );
+                    if (sb.getPosition() == 1) {
+                        map.moveCamera(CameraUpdateFactory.newLatLng(boatPosition));
+                        map.animateCamera(CameraUpdateFactory.zoomTo(7), 2000, null);
+                    }
                 }
             }
             LayoutUtils.getBitmapFromVector(context, R.drawable.boat_icon,

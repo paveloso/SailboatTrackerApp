@@ -17,8 +17,17 @@ public class Sailboat {
     private boolean joker;
     private boolean stealth;
     private String lastReport;
+    private Character yachtStatus;
 
     private int resourceColor;
+
+    public Character getYachtStatus() {
+        return yachtStatus;
+    }
+
+    public void setYachtStatus(Character yachtStatus) {
+        this.yachtStatus = yachtStatus;
+    }
 
     public int getResourceColor() {
         return resourceColor;
