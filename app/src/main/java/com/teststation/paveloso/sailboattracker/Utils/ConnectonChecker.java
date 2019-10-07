@@ -15,7 +15,8 @@ public class ConnectonChecker {
         boolean success = false;
 
         try {
-            URL url = new URL("https://google.com");
+            String urlCheck = PropertiesProvider.getProperties().getProperty("connect-check-url");
+            URL url = new URL(urlCheck);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setConnectTimeout(10000);
             connection.connect();

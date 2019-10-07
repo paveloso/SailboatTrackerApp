@@ -1,5 +1,6 @@
 package com.teststation.paveloso.sailboattracker;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,12 +11,16 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.teststation.paveloso.sailboattracker.Utils.ConnectionCheckerAsync;
+import com.teststation.paveloso.sailboattracker.Utils.PropertiesProvider;
 
 public class MainActivity extends AppCompatActivity {
+
+    private static Context appContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        appContext = getApplicationContext();
         setContentView(R.layout.activity_main);
 
         final TextView connResultText = (TextView) findViewById(R.id.conn_res);
@@ -53,5 +58,9 @@ public class MainActivity extends AppCompatActivity {
     public void openRaceMap(View view) {
         Intent intent = new Intent(MainActivity.this, MapsActivity.class);
         startActivity(intent);
+    }
+
+    public static Context getAppContext() {
+        return appContext;
     }
 }
