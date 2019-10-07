@@ -41,10 +41,10 @@ public class DataParser {
 //        info += ("\tReceived: " + TrafficStats.getTotalRxBytes() + " bytes\n");
 //        info += ("\tTransmitted: " + TrafficStats.getTotalTxBytes() + " bytes\n");
 
-        String parseUrl = "https://www.clipperroundtheworld.com/race/standings"; // url goes here
+        String parseUrl = PropertiesProvider.getProperties().getProperty("race-data-parse-url"); // url goes here
 
         try {
-            Document doc = Jsoup.connect("https://www.clipperroundtheworld.com/race/standings")
+            Document doc = Jsoup.connect(parseUrl)
                     .timeout(0)
                     .get();
 
