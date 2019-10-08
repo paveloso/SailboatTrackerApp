@@ -15,4 +15,12 @@
     <string name="name">Name</string>
     <string name="sog">SOG(kn)</string>
     <string name="dtf">DTF(nm)</string>
+    <string name="created_by">Created By:</string>
+    <string name="creator">Pavels Saikins</string>
+    <string name="contacts">Have a word?</string>
+    <string name="code">App\'s code:</string>
+    <string name="email_address">saikinspav@gmail.com</string>
+    <string name="fb_name">/pavels.saikins</string>
+    <string name="git_repo_link">/paveloso/SailboatTrackerApp</string>
+    <string name="about_short_text">long story short</string>
 </resources>
