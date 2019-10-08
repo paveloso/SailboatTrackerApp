@@ -181,18 +181,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 color.setBackgroundColor(sb.getResourceColor());
 
                 TextView pos = new TextView(this);
-                pos.setText(String.valueOf(sb.getPosition()));
+                pos.setText(sb.isStealth() ? "-" : String.valueOf(sb.getPosition()));
                 pos.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
 
                 TextView name = new TextView(this);
-                name.setText(sb.getName());
+                name.setText(sb.getName() + ((sb.isJoker() || sb.isStealth()) ? (sb.isStealth() ? " (S)" : " (J)") : ""));
 
                 TextView sog = new TextView(this);
 //                String formate = dfSog.format(sb.getSog());
-                sog.setText(sb.getSog());
+                sog.setText(sb.isStealth() ? "-" : sb.getSog());
 
                 TextView dtf = new TextView(this);
-                dtf.setText(String.valueOf(sb.getDtf()));
+                dtf.setText(sb.isStealth() ? "-" : String.valueOf(sb.getDtf()));
 
                 TableRow boatRow = new TableRow(this);
                 boatRow.addView(empty);

@@ -53,20 +53,40 @@ public class DataParser {
             for (Element row : currentStandingTable.select("tr")) {
                 Elements tds = row.select("td");
                 if (tds.size() > 0) {
-                    Elements boatNameBlock = tds.get(1).getElementsByAttribute("class");
-                    boolean joker = tds.get(1).text().contains("Joker");
-
                     Sailboat sailboat = new Sailboat();
-                    sailboat.setPosition(Integer.parseInt(tds.get(0).text()));
+                    if (tds.get(9).text().equals("Stealth")) {
+                        sailboat.setStealth(true);
+                    }
+                    Elements boatNameBlock = tds.get(1).getElementsByAttribute("class");
                     sailboat.setName(boatNameBlock.get(0).text());
-                    sailboat.setLatitude(Float.parseFloat(tds.get(2).text()));
-                    sailboat.setLongitude(Float.parseFloat(tds.get(3).text()));
-                    sailboat.setDtf(Double.parseDouble(tds.get(4).text().replace("NM", "")));
-                    sailboat.setSog(String.format("%.1f", Double.parseDouble(tds.get(5).text().replace("KN", ""))));
-//                    SimpleDateFormat sdf = new SimpleDateFormat("dd MMM yyyy HH.mm");
-                    sailboat.setLastReport(tds.get(8).text().replace(" (UTC)", ""));
-                    sailboat.setResourceColor(findColorForName(sailboat.getName()));
+                    boolean joker = tds.get(1).text().contains("Joker");
                     sailboat.setJoker(joker);
+
+                    String yachtStatus = tds.get(9).text().toLowerCase();
+                    switch (yachtStatus) {
+                        case "racing":
+                            sailboat.setYachtStatus('r');
+                            break;
+                        case "stealth":
+                            sailboat.setYachtStatus('s');
+                            break;
+                        case "finished":
+                            sailboat.setYachtStatus('f');
+                            break;
+                        default:
+                            sailboat.setYachtStatus('-');
+                    }
+
+                    if (!sailboat.isStealth()) {
+                        sailboat.setPosition(Integer.parseInt(tds.get(0).text()));
+                        sailboat.setLatitude(Float.parseFloat(tds.get(2).text()));
+                        sailboat.setLongitude(Float.parseFloat(tds.get(3).text()));
+                        sailboat.setDtf(Double.parseDouble(tds.get(4).text().replace("NM", "")));
+                        sailboat.setSog(String.format("%.1f", Double.parseDouble(tds.get(5).text().replace("KN", ""))));
+//                    SimpleDateFormat sdf = new SimpleDateFormat("dd MMM yyyy HH.mm");
+                        sailboat.setLastReport(tds.get(8).text().replace(" (UTC)", ""));
+                    }
+                    sailboat.setResourceColor(findColorForName(sailboat.getName()));
 
                     sailboatsData.add(sailboat);
                 }
