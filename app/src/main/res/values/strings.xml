@@ -22,5 +22,6 @@
     <string name="email_address">saikinspav@gmail.com</string>
     <string name="fb_name">/pavels.saikins</string>
     <string name="git_repo_link">/paveloso/SailboatTrackerApp</string>
-    <string name="about_short_text">long story short</string>
+    <string name="about_short_text">This app represents the data taken from the official race\'s page and the main purpose of this app is to make it simpler and faster to see current race standing and boats positions.\n\nLong story short - unofficial app with the official data.</string>
+    <string name="ln_name">/pavels-saikins</string>
 </resources>
