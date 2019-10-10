@@ -1,7 +1,9 @@
 package com.teststation.paveloso.sailboattracker;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -58,6 +60,22 @@ public class MainActivity extends AppCompatActivity {
     public void openRaceMap(View view) {
         Intent intent = new Intent(MainActivity.this, MapsActivity.class);
         startActivity(intent);
+    }
+
+    public void openAbout(View view) {
+        AlertDialog aboutDialog = new AlertDialog.Builder(this).create();
+        aboutDialog.setTitle("About");
+
+        aboutDialog.setView(getLayoutInflater().inflate(R.layout.about_dialog, null));
+
+        aboutDialog.setButton(this.getResources().getString(R.string.close), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface aboutDialog, int which) {
+                aboutDialog.dismiss();
+            }
+        });
+
+        aboutDialog.show();
     }
 
     public static Context getAppContext() {

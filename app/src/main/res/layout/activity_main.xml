@@ -69,7 +69,8 @@
                     android:layout_margin="@dimen/buttons_all_margins"
                     android:background="@color/app_buttons_red"
                     android:text="@string/app_info_but"
-                    android:textColor="@color/app_buttons_text_white" />
+                    android:textColor="@color/app_buttons_text_white"
+                    android:onClick="openAbout"/>
             </LinearLayout>
 
         </RelativeLayout>
