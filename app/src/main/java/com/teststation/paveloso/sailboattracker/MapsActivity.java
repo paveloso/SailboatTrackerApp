@@ -185,14 +185,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 pos.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
 
                 TextView name = new TextView(this);
-                name.setText(sb.getName() + ((sb.isJoker() || sb.isStealth()) ? (sb.isStealth() ? " (S)" : " (J)") : ""));
+                String addInfo = sb.getYachtStatus().equals('r') ? "" : " (" + sb.getYachtStatus().toString().toUpperCase() + ")";
+                name.setText(sb.getName() + addInfo);
 
                 TextView sog = new TextView(this);
 //                String formate = dfSog.format(sb.getSog());
-                sog.setText(sb.isStealth() ? "-" : sb.getSog());
+                sog.setText(sb.getYachtStatus().equals('r') ? sb.getSog() : "-");
 
                 TextView dtf = new TextView(this);
-                dtf.setText(sb.isStealth() ? "-" : String.valueOf(sb.getDtf()));
+                dtf.setText(sb.getYachtStatus().equals('r') ? String.valueOf(sb.getDtf()) : "-");
 
                 TableRow boatRow = new TableRow(this);
                 boatRow.addView(empty);
