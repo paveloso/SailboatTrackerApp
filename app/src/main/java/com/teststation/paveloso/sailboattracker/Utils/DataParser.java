@@ -69,6 +69,7 @@ public class DataParser {
                             break;
                         case "stealth":
                             sailboat.setYachtStatus('s');
+                            sailboat.setStealth(true);
                             break;
                         case "finished":
                             sailboat.setYachtStatus('f');
@@ -77,14 +78,20 @@ public class DataParser {
                             sailboat.setYachtStatus('-');
                     }
 
+                    if (!tds.get(10).text().isEmpty()) {
+                        sailboat.setYachtStatus('f');
+                    }
+
                     if (!sailboat.isStealth()) {
                         sailboat.setPosition(Integer.parseInt(tds.get(0).text()));
                         sailboat.setLatitude(Float.parseFloat(tds.get(2).text()));
                         sailboat.setLongitude(Float.parseFloat(tds.get(3).text()));
-                        sailboat.setDtf(Double.parseDouble(tds.get(4).text().replace("NM", "")));
-                        sailboat.setSog(String.format("%.1f", Double.parseDouble(tds.get(5).text().replace("KN", ""))));
+                        if (!sailboat.getYachtStatus().equals('f')) {
+                            sailboat.setDtf(Double.parseDouble(tds.get(4).text().replace("NM", "")));
+                            sailboat.setSog(String.format("%.1f", Double.parseDouble(tds.get(5).text().replace("KN", ""))));
 //                    SimpleDateFormat sdf = new SimpleDateFormat("dd MMM yyyy HH.mm");
-                        sailboat.setLastReport(tds.get(8).text().replace(" (UTC)", ""));
+                            sailboat.setLastReport(tds.get(8).text().replace(" (UTC)", ""));
+                        }
                     }
                     sailboat.setResourceColor(findColorForName(sailboat.getName()));
 
