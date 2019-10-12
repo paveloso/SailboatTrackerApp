@@ -7,6 +7,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.Resources;
 import android.graphics.Typeface;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
@@ -18,6 +20,7 @@ import android.widget.ProgressBar;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -121,6 +124,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void openDetails(View view) {
         int rows = 11;
         int columns = 4;
+        boolean lastReportSet = false;
 
         List<Sailboat> sailboatList = DataParserAsync.getSailboatListPrepared();
 
@@ -128,7 +132,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 //        Dialog dialog = new Dialog(view.getContext());
 //        dialog.setContentView(R.layout.detailed_race_info);
-        dialog.setTitle(this.getResources().getString(R.string.details) + "\n(" + (sailboatList == null || sailboatList.isEmpty() ? "-" : sailboatList.get(0).getLastReport()) + " UTC)");
+//        dialog.setTitle(this.getResources().getString(R.string.details) + "\n(" + (sailboatList == null || sailboatList.isEmpty() ? "-" : sailboatList.get(0).getLastReport()) + " UTC)");
+        StringBuilder dialogTitle = new StringBuilder(this.getResources().getString(R.string.details));
 
         TableLayout tableLayout = new TableLayout(this);
         tableLayout.setLayoutParams(new TableLayout.LayoutParams(
@@ -185,7 +190,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 pos.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
 
                 TextView name = new TextView(this);
-                String addInfo = sb.getYachtStatus().equals('r') ? "" : " (" + sb.getYachtStatus().toString().toUpperCase() + ")";
+                String addInfo = sb.getYachtStatus().equals('r') ? (sb.isJoker() ? " (J)" : "") : " (" + sb.getYachtStatus().toString().toUpperCase() + ")";
                 name.setText(sb.getName() + addInfo);
 
                 TextView sog = new TextView(this);
@@ -204,8 +209,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 boatRow.addView(dtf);
 
                 tableLayout.addView(boatRow);
+
+                if (sb.getYachtStatus().equals('r') && !lastReportSet) {
+                    dialogTitle.append("\n(" + sb.getLastReport() + " UTC)");
+                    lastReportSet = true;
+                }
             }
         }
+
+        dialog.setTitle(dialogTitle);
 
         dialog.setView(tableLayout);
 
@@ -219,5 +231,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 //        setContentView(tableLayout);
 
         dialog.show();
+    }
+
+    public static void displayToastOnMap(final String msg) {
+        Handler handler = new Handler(Looper.getMainLooper());
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(MainActivity.getAppContext(), msg, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }
