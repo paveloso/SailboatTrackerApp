@@ -60,9 +60,11 @@ public class DataParserAsync extends AsyncTask<Void, Integer, List<Sailboat>> {
 
     @Override
     protected void onPostExecute(List<Sailboat> sailboats) {
+        boolean mapFocusSet = false;
         sailboatListPrepared = sailboats;
         progressDialog.dismiss();
         if (!sailboats.isEmpty()) {
+            LatLng firstBoatPos = null;
             for (Sailboat sb : sailboats) {
                 if (!sb.isStealth()) {
                     LatLng boatPosition = new LatLng(sb.getLatitude(), sb.getLongitude());
@@ -76,10 +78,19 @@ public class DataParserAsync extends AsyncTask<Void, Integer, List<Sailboat>> {
                             .rotation(sb.getCog())
                     );
                     if (sb.getPosition() == 1) {
+                        firstBoatPos = boatPosition;
+                    }
+                    if (sb.getYachtStatus().equals('r') && !mapFocusSet) {
                         map.moveCamera(CameraUpdateFactory.newLatLng(boatPosition));
                         map.animateCamera(CameraUpdateFactory.zoomTo(7), 2000, null);
+                        mapFocusSet = true;
                     }
                 }
+            }
+            if (!mapFocusSet) {
+                map.moveCamera(CameraUpdateFactory.newLatLng(firstBoatPos));
+                map.animateCamera(CameraUpdateFactory.zoomTo(7), 2000, null);
+//                mapFocusSet = true;
             }
             LayoutUtils.getBitmapFromVector(context, R.drawable.boat_icon,
                     ContextCompat.getColor(context, R.color.app_buttons_red));

@@ -4,10 +4,15 @@ import android.content.Context;
 import android.net.TrafficStats;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.teststation.paveloso.sailboattracker.Entity.Sailboat;
+import com.teststation.paveloso.sailboattracker.MainActivity;
+import com.teststation.paveloso.sailboattracker.MapsActivity;
 import com.teststation.paveloso.sailboattracker.R;
 
+import org.jsoup.Connection;
+import org.jsoup.HttpStatusException;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -44,9 +49,11 @@ public class DataParser {
         String parseUrl = PropertiesProvider.getProperties().getProperty("race-data-parse-url"); // url goes here
 
         try {
-            Document doc = Jsoup.connect(parseUrl)
-                    .timeout(0)
-                    .get();
+            Connection.Response execute = Jsoup.connect(parseUrl).execute();
+//            Document doc = Jsoup.connect(parseUrl)
+//                    .timeout(0)
+//                    .get();
+            Document doc = Jsoup.parse(execute.body());
 
             Element currentStandingTable = doc.getElementById("currentstandings");
 
@@ -98,8 +105,20 @@ public class DataParser {
                     sailboatsData.add(sailboat);
                 }
             }
+            //debug
+//            sailboatsData.clear();
+            if (sailboatsData.isEmpty()) {
+                throw new IllegalStateException("Sailboats list is empty");
+            }
+        } catch (IllegalStateException e) {
+            Log.e(TAG, "Empty Sailboats list", e);
+            MapsActivity.displayToastOnMap("Received empty data");
+        } catch (HttpStatusException e) {
+            Log.e(TAG, "Status code: " + e.getStatusCode(), e);
+            MapsActivity.displayToastOnMap("Can't get data from source");
         } catch (IOException e) {
             Log.e(TAG, "Can't connect to " + parseUrl, e);
+            MapsActivity.displayToastOnMap("Something went wrong");
         }
 
 //        String infoAfter = "";
