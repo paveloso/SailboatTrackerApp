@@ -7,6 +7,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.Resources;
 import android.graphics.Typeface;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
@@ -18,6 +20,7 @@ import android.widget.ProgressBar;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -185,7 +188,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 pos.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
 
                 TextView name = new TextView(this);
-                String addInfo = sb.getYachtStatus().equals('r') ? "" : " (" + sb.getYachtStatus().toString().toUpperCase() + ")";
+                String addInfo = sb.getYachtStatus().equals('r') ? (sb.isJoker() ? " (J)" : "") : " (" + sb.getYachtStatus().toString().toUpperCase() + ")";
                 name.setText(sb.getName() + addInfo);
 
                 TextView sog = new TextView(this);
@@ -219,5 +222,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 //        setContentView(tableLayout);
 
         dialog.show();
+    }
+
+    public static void displayToastOnMap(final String msg) {
+        Handler handler = new Handler(Looper.getMainLooper());
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(MainActivity.getAppContext(), msg, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }
