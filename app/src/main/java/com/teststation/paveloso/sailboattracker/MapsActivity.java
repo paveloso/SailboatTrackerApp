@@ -124,6 +124,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void openDetails(View view) {
         int rows = 11;
         int columns = 4;
+        boolean lastReportSet = false;
 
         List<Sailboat> sailboatList = DataParserAsync.getSailboatListPrepared();
 
@@ -131,7 +132,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 //        Dialog dialog = new Dialog(view.getContext());
 //        dialog.setContentView(R.layout.detailed_race_info);
-        dialog.setTitle(this.getResources().getString(R.string.details) + "\n(" + (sailboatList == null || sailboatList.isEmpty() ? "-" : sailboatList.get(0).getLastReport()) + " UTC)");
+//        dialog.setTitle(this.getResources().getString(R.string.details) + "\n(" + (sailboatList == null || sailboatList.isEmpty() ? "-" : sailboatList.get(0).getLastReport()) + " UTC)");
+        StringBuilder dialogTitle = new StringBuilder(this.getResources().getString(R.string.details));
 
         TableLayout tableLayout = new TableLayout(this);
         tableLayout.setLayoutParams(new TableLayout.LayoutParams(
@@ -207,8 +209,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 boatRow.addView(dtf);
 
                 tableLayout.addView(boatRow);
+
+                if (sb.getYachtStatus().equals('r') && !lastReportSet) {
+                    dialogTitle.append("\n(" + sb.getLastReport() + " UTC)");
+                    lastReportSet = true;
+                }
             }
         }
+
+        dialog.setTitle(dialogTitle);
 
         dialog.setView(tableLayout);
 
