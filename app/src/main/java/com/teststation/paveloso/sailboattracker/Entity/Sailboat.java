@@ -18,8 +18,26 @@ public class Sailboat {
     private boolean stealth;
     private String lastReport;
     private Character yachtStatus;
+    private int overallPosition;
+    private int overallPoints;
 
     private int resourceColor;
+
+    public int getOverallPosition() {
+        return overallPosition;
+    }
+
+    public void setOverallPosition(int overallPosition) {
+        this.overallPosition = overallPosition;
+    }
+
+    public int getOverallPoints() {
+        return overallPoints;
+    }
+
+    public void setOverallPoints(int overallPoints) {
+        this.overallPoints = overallPoints;
+    }
 
     public Character getYachtStatus() {
         return yachtStatus;

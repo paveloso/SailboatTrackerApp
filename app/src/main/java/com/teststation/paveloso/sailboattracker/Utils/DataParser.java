@@ -57,6 +57,8 @@ public class DataParser {
 
             Element currentStandingTable = doc.getElementById("currentstandings");
 
+            Element overallRaceTable = doc.getElementById("leaderboard");
+
             for (Element row : currentStandingTable.select("tr")) {
                 Elements tds = row.select("td");
                 if (tds.size() > 0) {
@@ -103,6 +105,19 @@ public class DataParser {
                     sailboat.setResourceColor(findColorForName(sailboat.getName()));
 
                     sailboatsData.add(sailboat);
+                }
+            }
+
+            for (Element row : overallRaceTable.select("tr")) {
+                Elements tds = row.select("td");
+                if (tds.size() > 0) {
+                    Elements boatNameBlock = tds.get(1).getElementsByAttribute("class");
+                    for (Sailboat sb : sailboatsData) {
+                        if (sb.getName().equals(boatNameBlock.get(0).text())) {
+                            sb.setOverallPosition(Integer.parseInt(tds.get(0).text()));
+                            sb.setOverallPoints(Integer.parseInt(tds.get(20).text()));
+                        }
+                    }
                 }
             }
             //debug

@@ -9,6 +9,7 @@ This application helps to track the boats progress during the race. It takes dat
 This App:
 - contains no adds
 - asks no passwords or sensible data of any kind
+
 If anything of the list above is not true during the app usage, please let me know.
 
 **Screenshots**
