@@ -38,7 +38,9 @@ import org.w3c.dom.Text;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
@@ -130,9 +132,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         AlertDialog dialog = new AlertDialog.Builder(this).create();
 
-//        Dialog dialog = new Dialog(view.getContext());
-//        dialog.setContentView(R.layout.detailed_race_info);
-//        dialog.setTitle(this.getResources().getString(R.string.details) + "\n(" + (sailboatList == null || sailboatList.isEmpty() ? "-" : sailboatList.get(0).getLastReport()) + " UTC)");
         StringBuilder dialogTitle = new StringBuilder(this.getResources().getString(R.string.details));
 
         TableLayout tableLayout = new TableLayout(this);
@@ -214,6 +213,96 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     dialogTitle.append("\n(" + sb.getLastReport() + " UTC)");
                     lastReportSet = true;
                 }
+            }
+        }
+
+        dialog.setTitle(dialogTitle);
+
+        dialog.setView(tableLayout);
+
+        dialog.setButton(this.getResources().getString(R.string.close), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+
+//        setContentView(tableLayout);
+
+        dialog.show();
+    }
+
+    public void openOverall(View view) {
+        List<Sailboat> sailboatList = DataParserAsync.getSailboatListPrepared().stream().sorted(Comparator.comparingInt(Sailboat::getOverallPosition)).collect(Collectors.toList());
+
+        AlertDialog dialog = new AlertDialog.Builder(this).create();
+
+        StringBuilder dialogTitle = new StringBuilder(this.getResources().getString(R.string.overall));
+
+        TableLayout tableLayout = new TableLayout(this);
+        tableLayout.setLayoutParams(new TableLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+        ));
+        tableLayout.setStretchAllColumns(true);
+
+        TextView textViewH = new TextView(this);
+        textViewH.setText("");
+
+        TextView textViewH0 = new TextView(this);
+        textViewH0.setText("");
+//        textViewH0.setTypeface(textViewH0.getTypeface(), Typeface.BOLD);
+
+        TextView textViewH1 = new TextView(this);
+        textViewH1.setText(this.getResources().getText(R.string.pos));
+        textViewH1.setTypeface(textViewH1.getTypeface(), Typeface.BOLD);
+        textViewH1.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+
+        TextView textViewH2 = new TextView(this);
+        textViewH2.setText(this.getResources().getText(R.string.name));
+        textViewH2.setTypeface(textViewH2.getTypeface(), Typeface.BOLD);
+
+        TextView textViewH3 = new TextView(this);
+        textViewH3.setText(this.getResources().getText(R.string.op));
+        textViewH3.setTypeface(textViewH3.getTypeface(), Typeface.BOLD);
+
+        TableRow tableRowHeader = new TableRow(this);
+        tableRowHeader.addView(textViewH);
+        tableRowHeader.addView(textViewH0);
+        tableRowHeader.addView(textViewH1);
+        tableRowHeader.addView(textViewH2);
+        tableRowHeader.addView(textViewH3);
+        tableLayout.addView(tableRowHeader);
+
+        if (sailboatList != null && !sailboatList.isEmpty()) {
+            for (Sailboat sb : sailboatList) {
+
+                TextView empty = new TextView(this);
+                empty.setText(" ");
+
+                TextView color = new TextView(this);
+                color.setText(" ");
+                color.setBackgroundColor(sb.getResourceColor());
+
+                TextView pos = new TextView(this);
+                pos.setText(String.valueOf(sb.getOverallPosition()));
+                pos.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+
+                TextView name = new TextView(this);
+                name.setText(sb.getName());
+
+                TextView op = new TextView(this);
+                op.setText(String.valueOf(sb.getOverallPoints()));
+                op.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+
+                TableRow boatRow = new TableRow(this);
+                boatRow.addView(empty);
+                boatRow.addView(color);
+                boatRow.addView(pos);
+                boatRow.addView(name);
+                boatRow.addView(op);
+
+                tableLayout.addView(boatRow);
             }
         }
 

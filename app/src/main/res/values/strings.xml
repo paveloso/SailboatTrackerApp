@@ -7,7 +7,9 @@
     <string name="title_activity_maps">Race Map</string>
     <string name="obtaining_race_data">Obtaining the Race data&#8230;</string>
     <string name="show_details">Show Details</string>
+    <string name="show_overall">Overall</string>
     <string name="details">Details</string>
+    <string name="overall">Overall race</string>
     <string name="kn">kn</string>
     <string name="nm">nm</string>
     <string name="close">Close</string>
@@ -15,6 +17,7 @@
     <string name="name">Name</string>
     <string name="sog">SOG(kn)</string>
     <string name="dtf">DTF(nm)</string>
+    <string name="op">Overall points</string>
     <string name="created_by">Created By:</string>
     <string name="creator">Pavels Saikins</string>
     <string name="contacts">Have a word?</string>
