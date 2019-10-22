@@ -189,7 +189,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 pos.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
 
                 TextView name = new TextView(this);
-                String addInfo = sb.getYachtStatus().equals('r') ? (sb.isJoker() ? " (J)" : "") : " (" + sb.getYachtStatus().toString().toUpperCase() + ")";
+                String addInfo = sb.getYachtStatus().equals('r') || sb.getYachtStatus().equals('-') ? (sb.isJoker() ? " (J)" : "") : " (" + sb.getYachtStatus().toString().toUpperCase() + ")";
                 name.setText(sb.getName() + addInfo);
 
                 TextView sog = new TextView(this);
@@ -233,7 +233,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     public void openOverall(View view) {
-        List<Sailboat> sailboatList = DataParserAsync.getSailboatListPrepared().stream().sorted(Comparator.comparingInt(Sailboat::getOverallPosition)).collect(Collectors.toList());
+        List<Sailboat> sailboatList = DataParserAsync.getSailboatListPrepared()
+        .stream().sorted(Comparator.comparingInt(Sailboat::getOverallPosition)).collect(Collectors.toList());
 
         AlertDialog dialog = new AlertDialog.Builder(this).create();
 
